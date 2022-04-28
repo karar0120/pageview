@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:shop/Modal/onBoarding.dart';
-import 'package:shop/Screens/login.dart';
+import 'package:shop/Screens/LoginScreen/login.dart';
+import 'package:shop/Shared/constaness/constanesApp.dart';
 import 'package:shop/ViewModal/onBoarding.dart';
-import 'package:shop/constaness/constanesApp.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoarding extends StatefulWidget {
@@ -34,7 +34,7 @@ class _OnBoardingState extends State<OnBoarding> {
       actions: [
         TextButton(
             onPressed: () {
-              NavigatorPushAndRemove(context, Login());
+              navigatorPushAndRemove(context, Login());
             },
             child: Padding(
               padding: const EdgeInsets.all(10),
@@ -87,7 +87,7 @@ class _OnBoardingState extends State<OnBoarding> {
                   backgroundColor: Colors.indigo,
                   onPressed: () {
                     if (onBoardingView.isLastPageView) {
-                      NavigatorPushAndRemove(context, Login());
+                      navigatorPushAndRemove(context, Login());
                     } else {
                       onBoardingView.NextPageView();
                     }
