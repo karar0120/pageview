@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shop/Shared/constaness/constanesApp.dart';
 import 'package:tflite/tflite.dart';
 
 class ModelPage extends StatefulWidget {
@@ -27,7 +28,7 @@ class _ModelPageState extends State<ModelPage> {
   void initState() {
     super.initState();
     loadmodel();
-    intalizecamera();
+    // intalizecamera();
   }
 
   void intalizecamera() {
@@ -89,7 +90,7 @@ class _ModelPageState extends State<ModelPage> {
         path: pickedimage!.path,
         imageMean: 0.0, // defaults to 117.0
         imageStd: 255.0, // defaults to 1.0
-        numResults: 60, // defaults to 5
+        numResults: 9, // defaults to 5
         threshold: 0.2, // defaults to 0.1
         asynch: true // defaults to true
         );
@@ -113,8 +114,8 @@ class _ModelPageState extends State<ModelPage> {
         );
   }
 
-  Future<void> get_image() async {
-    final PickedFile = await picker.pickImage(source: ImageSource.gallery);
+  Future<void> get_image({required ImageSource imageSource}) async {
+    final PickedFile = await picker.pickImage(source: imageSource);
     if (PickedFile != null) {
       setState(() {
         pickedimage = File(PickedFile.path);
@@ -126,13 +127,17 @@ class _ModelPageState extends State<ModelPage> {
 
   @override
   Widget build(BuildContext context) {
+    double h = MediaQuery.of(context).size.height;
+    double w = MediaQuery.of(context).size.width;
+    Size size = MediaQuery.of(context).size;
+    Util(context);
     return Scaffold(
       appBar: AppBar(),
       body: Column(
         // ignore: prefer_const_literals_to_create_immutables
         children: [
-          // checkimage()
-          checkcamra()
+          checkimage(h: h, w: w)
+          // checkcamra()
         ],
       ),
     );
@@ -145,28 +150,43 @@ class _ModelPageState extends State<ModelPage> {
     controller!.dispose();
   }
 
-  Widget checkimage() {
+  Widget checkimage({required double h, required double w}) {
     return Column(
         // ignore: prefer_const_literals_to_create_immutables
         children: [
           pickedimage != null
               ? Image.file(
                   pickedimage!,
-                  width: 200,
-                  height: 200,
+                  width: w,
+                  height: h / 3,
                   fit: BoxFit.fill,
                 )
-              : Image(image: AssetImage('assets/download.png')),
-          TextButton(
+              : const Image(image: AssetImage('assets/images/spalsh.jpg')),
+          ElevatedButton(
               onPressed: () async {
-                get_image();
+                showmoda(context: context);
               },
-              child: Text('picked')),
-          TextButton(
-              onPressed: () {
-                runmodel_image();
-              },
-              child: Text('data')),
+              // ignore: prefer_const_constructors
+              child: Text(
+                'Upload your image',
+                style: const TextStyle(color: Colors.black),
+              )),
+          const SizedBox(
+            height: 5,
+          ),
+          ElevatedButton(
+              onPressed: pickedimage != null
+                  ? () {
+                      runmodel_image();
+                    }
+                  : null,
+              child: const Text('Check your image')),
+          pickedimage != null
+              ? Text(
+                  output,
+                  style: const TextStyle(color: Colors.black),
+                )
+              : Container()
         ]);
   }
 
@@ -181,7 +201,7 @@ class _ModelPageState extends State<ModelPage> {
                   color: Colors.white,
                 )
               : Container(
-                  width: 400, height: 400, child: CameraPreview(controller!)),
+                  width: 400, height: 224, child: CameraPreview(controller!)),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -200,5 +220,34 @@ class _ModelPageState extends State<ModelPage> {
             ],
           )
         ]);
+  }
+
+  void showmoda({required BuildContext context}) {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) => Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      get_image(imageSource: ImageSource.gallery);
+                    },
+                    child: const Text(
+                      'gallery',
+                      style: TextStyle(color: Colors.black),
+                    )),
+                const SizedBox(
+                  height: 5,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      get_image(imageSource: ImageSource.camera);
+                    },
+                    child: const Text(
+                      'camera',
+                      style: TextStyle(color: Colors.black),
+                    ))
+              ],
+            ));
   }
 }

@@ -17,7 +17,7 @@ class _SplashState extends State<Splash> {
   void initState() {
     // ignore: todo
     // TODO: implement initState
-    super.initState();
+    // super.initState();
     Timer(const Duration(seconds: 2), () {
       navigatorPush(context, nextwidget);
     });
