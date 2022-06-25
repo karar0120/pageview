@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop/Firebase/firebase.dart';
 import '../Screens/Splash.dart';
 import '../ViewModal/chat_view_model/chat_cubit.dart';
 import '../ViewModal/layout_view_model/layout_cubit.dart';
@@ -17,13 +18,13 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (BuildContext context) => RegisterCubit()),
         BlocProvider(create: (BuildContext context) => LoginCubit()),
-        BlocProvider(create: (BuildContext context)=> LayoutCubit()),
-        BlocProvider(create: (BuildContext context)=> ChatCubit()),
-        BlocProvider(create: (BuildContext context)=> SearchCubit()),
-        BlocProvider(create: (BuildContext context)=> SettingCubit()),
+        BlocProvider(create: (BuildContext context) => LayoutCubit()),
+        BlocProvider(create: (BuildContext context) => ChatCubit()),
+        BlocProvider(create: (BuildContext context) => SearchCubit()),
+        BlocProvider(create: (BuildContext context) => SettingCubit()),
       ],
       child: MaterialApp(
-        theme: ThemeData(fontFamily: 'jannah', primarySwatch: Colors.green),
+        theme: ThemeData(fontFamily: 'jannah', primarySwatch: Colors.blueGrey),
         debugShowCheckedModeBanner: false,
         home: const Splash(),
       ),

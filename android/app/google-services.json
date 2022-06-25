@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "348904464546",
+    "project_id": "sam3enak-26928",
+    "storage_bucket": "sam3enak-26928.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348904464546:android:a4fa15dcc1ea5f3a76f7fb",
+        "android_client_info": {
+          "package_name": "com.example.shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348904464546-j2em82920ansi1bnstm2f9rm74rai9jb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shop",
+            "certificate_hash": "be4a44990608a1bf5fa9c28cbe391f667e5f36f6"
+          }
+        },
+        {
+          "client_id": "348904464546-vsr853v8b09a86ejndir60l633um9hvl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzW0AlTRnXjjGlUmPO-ORi8_kjUDuDKvs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348904464546-vsr853v8b09a86ejndir60l633um9hvl.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "348904464546-i83c1ugsg04p6k588o39s07cv53es30t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.shop"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

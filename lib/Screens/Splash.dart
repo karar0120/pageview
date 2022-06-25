@@ -3,8 +3,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shop/Shared/constaness/constanesApp.dart';
-
-import 'Login/login.dart';
+import 'package:shop/Shared/global/globals.dart';
 
 class Splash extends StatefulWidget {
   const Splash({Key? key}) : super(key: key);
@@ -20,13 +19,19 @@ class _SplashState extends State<Splash> {
     // TODO: implement initState
     super.initState();
     Timer(const Duration(seconds: 2), () {
-      navigatorPush(context, Login());
+      navigatorPush(context, nextwidget);
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white, body: SafeArea(child: logo_image()));
+        backgroundColor: Colors.white,
+        body: Stack(
+          children: [
+            backgroundcolor(),
+            logo_image(),
+          ],
+        ));
   }
 }

@@ -4,21 +4,21 @@ import 'package:flutter/cupertino.dart';
 
 import '../../Model/pageview_model/onBoarding.dart';
 
-
 class OnBoardingView {
   List<ContentOnBoarding> contentOnBoarding = [
     ContentOnBoarding(
         image: 'assets/images/shop2.png',
         title: 'Discover',
-        Subtitle: "Expolore world's top brands and boutiques"),
+        Subtitle:
+            "We are the first application that helps you communicate and translate sign language easily"),
     ContentOnBoarding(
         image: 'assets/images/shop1.png',
-        title: 'Enjoy your shopping',
-        Subtitle: 'Get high quality products for the bast prices '),
+        title: 'Enjoy your Journey',
+        Subtitle: 'Get high Security for your personal information '),
     ContentOnBoarding(
         image: 'assets/images/shop3.png',
-        title: 'ORDER ONLINE',
-        Subtitle: 'make an order sitting on a sofa pay and choose online'),
+        title: 'Start Now',
+        Subtitle: 'What are you waiting for to start your journey now?\n '),
   ];
 
   var pagecontroller = PageController();

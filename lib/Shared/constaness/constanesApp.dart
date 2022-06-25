@@ -2,16 +2,15 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void navigatorPushAndRemove(context, widget) => Navigator.pushAndRemoveUntil(
     context,
     MaterialPageRoute(builder: (context) => widget),
     (Route<dynamic> route) => false);
 
-void navigatorPush(context, widget) => Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => widget),
-    );
+void navigatorPush(context, widget) => Navigator.pushReplacement(
+    context, MaterialPageRoute(builder: (BuildContext context) => widget));
 
 Widget texrform(
         {required TextEditingController controller,
@@ -31,7 +30,7 @@ Widget texrform(
         obscureText: ispassword ?? false,
         keyboardType: keyborad_type,
         validator: handle_error,
-        style: TextStyle(fontSize: fontsize),
+        style: TextStyle(fontSize: fontsize, color: Color(0xFFfff5f4)),
 
         // ignore: prefer_const_constructors
         decoration: InputDecoration(
@@ -47,7 +46,7 @@ Widget texrform(
             suffixIcon: suffix_icon,
             label: Text(
               '$label',
-              style: TextStyle(fontSize: fontsize),
+              style: TextStyle(fontSize: fontsize, color: Color(0xFFfff5f4)),
             ),
             // border: InputBorder.none
             border: OutlineInputBorder(
@@ -59,7 +58,7 @@ Widget logo_image({double? height, BoxFit? fit}) => Container(
       height: height,
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage('assets/images/spalsh.jpg'),
+              image: AssetImage('assets/images/spl.png'),
               fit: fit ?? BoxFit.fitWidth)),
     );
 
@@ -75,7 +74,7 @@ Widget button(
           border: Border.all(color: Colors.blueGrey),
           borderRadius: BorderRadius.circular(5),
           gradient: LinearGradient(
-              colors: const [Color(0xFFFF247881), Color(0xFF30AADD)])),
+              colors: const [Color(0xFF0c2442), Color(0xFF4f7492)])),
       child: MaterialButton(
         onPressed: onPressed,
         child: Text(
@@ -85,4 +84,23 @@ Widget button(
       ),
     ),
   );
+}
+
+Widget backgroundcolor() {
+  return Container(
+    decoration: BoxDecoration(
+        gradient: LinearGradient(
+            colors: const [Color(0xFF0c2442), Color(0xFF4f7492)])),
+  );
+}
+
+void Util(BuildContext context) {
+  ScreenUtil.init(context, minTextAdapt: true, designSize: Size(360, 1880));
+}
+
+void showmessage({required BuildContext context, required String message}) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text(message),
+    duration: Duration(seconds: 1),
+  ));
 }

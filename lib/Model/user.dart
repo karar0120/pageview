@@ -1,0 +1,42 @@
+class UserModel {
+  String? imagePath;
+  String? uId;
+  String? name;
+  String? phone;
+  String? email;
+  String? about;
+
+  UserModel.empty();
+  UserModel({
+    required this.imagePath,
+    required this.uId,
+    required this.name,
+    required this.phone,
+    required this.email,
+    required this.about,
+  });
+
+  UserModel.fromJson(Map<String, dynamic>? json) {
+    if (json == null) {
+      print('null');
+    } else {
+      uId = json['uId'];
+      name = json['name'];
+      email = json['email'];
+      phone = json['phone'];
+      about = json['about'];
+
+      imagePath = json['imagePath'];
+    }
+  }
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'uId': uId,
+      'about': about,
+      'imagePath': imagePath
+    };
+  }
+}

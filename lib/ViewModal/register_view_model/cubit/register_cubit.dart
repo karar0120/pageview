@@ -1,23 +1,16 @@
 // ignore_for_file: non_constant_identifier_names, prefer_const_constructors
 
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shop/Firebase/firebase.dart';
+import 'package:shop/Model/user.dart';
+import 'package:shop/Screens/layout/layout_screen.dart';
+import 'package:shop/Shared/SharedPreference/pref.dart';
+import 'package:shop/Shared/constaness/constanesApp.dart';
+import 'package:shop/Shared/global/globals.dart';
 import 'package:shop/ViewModal/register_view_model/cubit/register_state.dart';
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class RegisterCubit extends Cubit<RegisterStates> {
   RegisterCubit() : super(RegisterIntialState());
@@ -59,7 +52,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-6])(?=.*?[!@#\$&*~]).{6,}$')
             .hasMatch(data);
     if (!passwordValid || data.isEmpty) {
-      return 'Enter Valid password';
+      return 'Minimum 1 Upper case\nMinimum 1 lowercase\nMinimum 1 Numeric Number\nMinimum 1 Special Character';
     }
   };
   void changeLock() {
@@ -68,12 +61,60 @@ class RegisterCubit extends Cubit<RegisterStates> {
     print(state);
   }
 
-  void register() {
+  void register({required BuildContext context}) async {
     checkRegister = !checkRegister;
-    emit(RegisterSuccess(checkRegister: checkRegister));
-    Timer(Duration(seconds: 2), () {
+    emit(RegisterLoading(checkRegister: checkRegister));
+    final userCredential =
+        await FirebaseData().signUp(email: email.text, password: password.text);
+    if (userCredential is String) {
+      showmessage(context: context, message: userCredential);
       checkRegister = !checkRegister;
-      emit(RegisterSuccess(checkRegister: checkRegister));
-    });
+      emit(RegisterFail(checkRegister: checkRegister));
+      return;
+    }
+    showmessage(context: context, message: 'Success Login');
+    User user = userCredential.user;
+    UserModel userInfo = UserModel(
+      imagePath: 'none',
+      uId: user.uid,
+      name: user_name.text,
+      phone: phone.text,
+      email: email.text,
+      about: 'none',
+    );
+    await FirebaseData().adduser(userInfo);
+    userModel = await FirebaseData().getUser(uid: user.uid);
+    Preference.put(key: 'id', value: userModel.uId!);
+    checkRegister = !checkRegister;
+    phone.clear();
+    email.clear();
+    user_name.clear();
+    password.clear();
+    emit(RegisterSuccess(checkRegister: checkRegister));
+    navigatorPush(context, LayoutScreen());
+  }
+
+  void registerwithgoogle({required BuildContext context}) async {
+    emit(RegisterLoading(checkRegister: checkRegister));
+    final userCredential = await FirebaseData().signUp_WithGoogle();
+    if (userCredential is String) {
+      showmessage(context: context, message: userCredential);
+      return;
+    }
+    showmessage(context: context, message: 'Success Login');
+    User user = userCredential.user;
+    UserModel userInfo = UserModel(
+      imagePath: user.photoURL,
+      uId: user.uid,
+      name: user.displayName,
+      phone: user.phoneNumber,
+      email: user.email,
+      about: 'none',
+    );
+    await FirebaseData().adduser(userInfo);
+    userModel = await FirebaseData().getUser(uid: user.uid);
+    Preference.put(key: 'id', value: userModel.uId!);
+    emit(RegisterSuccess(checkRegister: checkRegister));
+    navigatorPush(context, LayoutScreen());
   }
 }

@@ -23,3 +23,17 @@ class RegisterSuccess extends RegisterStates {
   @override
   List<Object> get props => [this.checkRegister];
 }
+
+class RegisterLoading extends RegisterStates {
+  bool checkRegister;
+  RegisterLoading({required this.checkRegister});
+  @override
+  List<Object> get props => [this.checkRegister];
+}
+
+class RegisterFail extends RegisterStates {
+  bool checkRegister;
+  RegisterFail({required this.checkRegister});
+  @override
+  List<Object> get props => [this.checkRegister];
+}

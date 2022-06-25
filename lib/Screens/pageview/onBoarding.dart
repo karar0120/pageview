@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:shop/Screens/Login/Loginpage.dart';
 import 'package:shop/Shared/constaness/constanesApp.dart';
 import 'package:shop/ViewModal/pageview_view_model/onBoarding.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../Model/pageview_model/onBoarding.dart';
-import '../Login/login.dart';
 
 class OnBoarding extends StatefulWidget {
   @override
@@ -34,13 +34,13 @@ class _OnBoardingState extends State<OnBoarding> {
       actions: [
         TextButton(
             onPressed: () {
-              navigatorPushAndRemove(context, Login());
+              navigatorPushAndRemove(context, LoginPage());
             },
             child: Padding(
               padding: const EdgeInsets.all(10),
               child: Text(
                 "SKIP",
-                style: TextStyle(color: Colors.indigo),
+                style: TextStyle(color: Color(0xFF0c2442)),
               ),
             ))
       ],
@@ -80,14 +80,14 @@ class _OnBoardingState extends State<OnBoarding> {
                     dotHeight: 10.0,
                     strokeWidth: 1.5,
                     dotColor: Colors.grey,
-                    activeDotColor: Colors.indigo),
+                    activeDotColor: Color(0xFF4f7492)),
               ),
               Spacer(),
               FloatingActionButton(
-                  backgroundColor: Colors.indigo,
+                  backgroundColor: Color(0xFF4f7492),
                   onPressed: () {
                     if (onBoardingView.isLastPageView) {
-                      navigatorPushAndRemove(context, Login());
+                      navigatorPushAndRemove(context, LoginPage());
                     } else {
                       onBoardingView.NextPageView();
                     }

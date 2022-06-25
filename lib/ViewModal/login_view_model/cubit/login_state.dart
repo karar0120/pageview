@@ -18,9 +18,23 @@ class LoginChangeLock extends LoginState {
   List<Object> get props => [this.lock];
 }
 
+class LoginLoading extends LoginState {
+  bool checklogin;
+  LoginLoading({required this.checklogin});
+  @override
+  List<Object> get props => [this.checklogin];
+}
+
 class LoginSuccess extends LoginState {
   bool checklogin;
   LoginSuccess({required this.checklogin});
+  @override
+  List<Object> get props => [this.checklogin];
+}
+
+class LoginFail extends LoginState {
+  bool checklogin;
+  LoginFail({required this.checklogin});
   @override
   List<Object> get props => [this.checklogin];
 }
