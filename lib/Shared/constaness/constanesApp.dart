@@ -104,3 +104,10 @@ void showmessage({required BuildContext context, required String message}) {
     duration: Duration(seconds: 1),
   ));
 }
+
+const defaul_user_image =
+    'https://img.freepik.com/free-photo/portrait-successful-man-having-stubble-posing-with-broad-smile-keeping-arms-folded_171337-1267.jpg?size=626&ext=jpg&ga=GA1.2.1407711504.1647202528';
+
+const defaul_cover_image =
+    'https://img.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg?size=626&ext=jpg&ga=GA1.2.1407711504.1647202528';
+const default_about = 'this your bio ...';

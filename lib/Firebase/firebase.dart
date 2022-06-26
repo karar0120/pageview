@@ -31,7 +31,7 @@ class FirebaseData {
       final user = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
 
-      return user;
+      return user.user;
       // ignore: empty_catches
     } on FirebaseAuthException catch (error) {
       String? errorMessage;

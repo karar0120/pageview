@@ -43,7 +43,6 @@ class LoginCubit extends Cubit<LoginState> {
   void changeLock() {
     locked = !locked;
     emit(LoginChangeLock(lock: locked));
-    print(state);
   }
 
   void login(context) async {

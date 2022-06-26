@@ -24,12 +24,12 @@ class RegisterCubit extends Cubit<RegisterStates> {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
   // ignore: prefer_function_declarations_over_variables
   final emailValidation = (data) {
-    bool emailValid = RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(data);
+    bool emailValid =
+        RegExp(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
+            .hasMatch(data);
 
     if (!emailValid || data.isEmpty) {
-      return 'Enter Valid password';
+      return 'Enter Valid Email';
     }
   };
   // ignore: prefer_function_declarations_over_variables
@@ -43,7 +43,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
   // ignore: prefer_function_declarations_over_variables
   final nameValidation = (data) {
     if (data.isEmpty) {
-      return 'Enter your phone';
+      return 'Enter your name';
     }
   };
   // ignore: prefer_function_declarations_over_variables
@@ -72,15 +72,16 @@ class RegisterCubit extends Cubit<RegisterStates> {
       emit(RegisterFail(checkRegister: checkRegister));
       return;
     }
-    showmessage(context: context, message: 'Success Login');
+    showmessage(context: context, message: 'Success Registeration');
     User user = userCredential.user;
     UserModel userInfo = UserModel(
-      imagePath: 'none',
+      image: defaul_user_image,
+      cover: defaul_cover_image,
       uId: user.uid,
       name: user_name.text,
       phone: phone.text,
       email: email.text,
-      about: 'none',
+      about: default_about,
     );
     await FirebaseData().adduser(userInfo);
     userModel = await FirebaseData().getUser(uid: user.uid);
@@ -101,11 +102,12 @@ class RegisterCubit extends Cubit<RegisterStates> {
       showmessage(context: context, message: userCredential);
       return;
     }
-    showmessage(context: context, message: 'Success Login');
+    showmessage(context: context, message: 'Success Registeration');
     User user = userCredential.user;
     UserModel userInfo = UserModel(
-      imagePath: user.photoURL,
+      image: user.photoURL,
       uId: user.uid,
+      cover: defaul_cover_image,
       name: user.displayName,
       phone: user.phoneNumber,
       email: user.email,

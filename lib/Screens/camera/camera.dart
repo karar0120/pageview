@@ -147,7 +147,9 @@ class _ModelPageState extends State<ModelPage> {
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    controller!.dispose();
+    if (controller != null) {
+      controller!.dispose();
+    }
   }
 
   Widget checkimage({required double h, required double w}) {
